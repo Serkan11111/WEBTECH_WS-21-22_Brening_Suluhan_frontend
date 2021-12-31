@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <to-do-card-list :toDos="this.toDos"></to-do-card-list>
   </div>
-  <to-do-create-form @created="addtoDo"></to-do-create-form>
+  <to-do-create-form @created="addToDo"></to-do-create-form>
 </template>
 
 <script>

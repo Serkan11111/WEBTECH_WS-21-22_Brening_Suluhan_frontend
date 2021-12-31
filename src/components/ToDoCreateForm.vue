@@ -18,7 +18,7 @@
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Beschreibung</label>
-          <input type="text" class="form-control" id="last-name" v-model="description" required>
+          <input type="text" class="form-control" id="description" v-model="description" required>
           <div class="invalid-feedback">
             Bitte gib eine nähere Beschreibung zu deiner ToDo ein.
           </div>
@@ -36,6 +36,7 @@
           <div class="invalid-feedback">
             Bitte gib die Deadline deiner ToDo an.
           </div>
+        </div>
         <div v-if="this.serverValidationMessages">
           <ul>
             <li v-for="(message, index) in serverValidationMessages" :key="index" style="color: red">

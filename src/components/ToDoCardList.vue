@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import ToDoCard from "@/components/ToDoCard";
+import ToDoCard from '@/components/ToDoCard'
 
 export default {
   name: 'ToDoCardList',
   components: {
-    ToDoCard,
+    ToDoCard
   },
   props: {
     toDos: {
