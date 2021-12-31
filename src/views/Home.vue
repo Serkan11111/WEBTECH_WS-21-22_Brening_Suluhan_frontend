@@ -1,5 +1,5 @@
 <template>
-  <h1>Persons</h1>
+  <h1>ToDos</h1>
   <div class="container-fluid">
     <to-do-card-list :toDos="this.toDos"></to-do-card-list>
   </div>
@@ -7,18 +7,14 @@
 </template>
 
 <script>
-import PersonsCardList from '@/components/ToDoCardList'
-import PersonsCreateForm from '@/components/ToDoCreateForm'
-import ToDoCard from "@/components/ToDoCard";
-import ToDoCardList from "@/components/ToDoCardList";
-import ToDoCreateForm from "@/components/ToDoCreateForm";
+import ToDoCardList from '@/components/ToDoCardList'
+import ToDoCreateForm from '@/components/ToDoCreateForm'
 
 export default {
   name: 'ToDos',
   components: {
     ToDoCreateForm,
-    ToDoCardList,
-    ToDoCard
+    ToDoCardList
   },
   data () {
     return {

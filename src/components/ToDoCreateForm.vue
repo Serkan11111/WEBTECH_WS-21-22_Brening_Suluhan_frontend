@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#persons-create-offcanvas" aria-controls="#toDo-create-offcanvas">
+  <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#toDos-create-offcanvas" aria-controls="#toDo-create-offcanvas">
     <i class="bi bi-toDo-plus-fill"></i>
   </button>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="toDo-create-offcanvas" aria-labelledby="offcanvas-label">
@@ -61,7 +61,7 @@ export default {
       title: '',
       description: '',
       module: '',
-      date:'',
+      date: '',
       done: false,
       isFavorite: false,
       serverValidationMessages: []
