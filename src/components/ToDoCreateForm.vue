@@ -1,48 +1,41 @@
 <template>
-  <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#persons-create-offcanvas" aria-controls="#persons-create-offcanvas">
-    <i class="bi bi-person-plus-fill"></i>
+  <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#persons-create-offcanvas" aria-controls="#toDo-create-offcanvas">
+    <i class="bi bi-toDo-plus-fill"></i>
   </button>
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="persons-create-offcanvas" aria-labelledby="offcanvas-label">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="toDo-create-offcanvas" aria-labelledby="offcanvas-label">
     <div class="offcanvas-header">
-      <h5 id="offcanvas-label">New Person</h5>
+      <h5 id="offcanvas-label">Neue ToDo</h5>
       <button type="button" id="close-offcanvas" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <form class="text-start needs-validation" id="persons-create-form" novalidate>
+      <form class="text-start needs-validation" id="toDo-create-form" novalidate>
         <div class="mb-3">
-          <label for="first-name" class="form-label">First name</label>
-          <input type="text" class="form-control" id="first-name" v-model="firstName" required>
+          <label for="title" class="form-label">Titel</label>
+          <input type="text" class="form-control" id="title" v-model="title" required>
           <div class="invalid-feedback">
-            Please provide the first name.
+            Bitte gib den Titel deiner ToDo ein.
           </div>
         </div>
         <div class="mb-3">
-          <label for="last-name" class="form-label">Last name</label>
-          <input type="text" class="form-control" id="last-name" v-model="lastName" required>
+          <label for="description" class="form-label">Beschreibung</label>
+          <input type="text" class="form-control" id="last-name" v-model="description" required>
           <div class="invalid-feedback">
-            Please provide the last name.
+            Bitte gib eine nähere Beschreibung zu deiner ToDo ein.
           </div>
         </div>
         <div class="mb-3">
-          <label for="gender" class="form-label">Gender</label>
-          <select id="gender" class="form-select" v-model="gender" required>
-            <option value="" selected disabled>Choose...</option>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-            <option value="DIVERSE">Diverse</option>
-          </select>
+          <label for="module" class="form-label">Modul</label>
+          <input type="text" class="form-control" id="module" v-model="module" required>
           <div class="invalid-feedback">
-            Please select a valid gender.
+            Bitte gib das Modul deiner ToDo ein.
           </div>
         </div>
         <div class="mb-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="vaccinated" v-model="vaccinated">
-            <label class="form-check-label" for="vaccinated">
-              Vaccinated
-            </label>
+          <label for="date" class="form-label">Datum</label>
+          <input type="date" class="form-control" id="date" v-model="date" required>
+          <div class="invalid-feedback">
+            Bitte gib die Deadline deiner ToDo an.
           </div>
-        </div>
         <div v-if="this.serverValidationMessages">
           <ul>
             <li v-for="(message, index) in serverValidationMessages" :key="index" style="color: red">
@@ -51,7 +44,7 @@
           </ul>
         </div>
         <div class="mt-5">
-          <button class="btn btn-primary me-3" type="submit" @click.prevent="createPerson">Create</button>
+          <button class="btn btn-primary me-3" type="submit" @click.prevent="createToDo">Create</button>
           <button class="btn btn-danger" type="reset">Reset</button>
         </div>
       </form>
@@ -61,30 +54,34 @@
 
 <script>
 export default {
-  name: 'PersonsCreateForm',
+  name: 'ToDoCreateForm',
   data () {
     return {
-      firstName: '',
-      lastName: '',
-      gender: '',
-      vaccinated: false,
+      title: '',
+      description: '',
+      module: '',
+      date:'',
+      done: false,
+      isFavorite: false,
       serverValidationMessages: []
     }
   },
   emits: ['created'],
   methods: {
-    async createPerson () {
+    async createToDo () {
       if (this.validate()) {
-        const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/persons'
+        const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/todos'
 
         const headers = new Headers()
         headers.append('Content-Type', 'application/json')
 
         const person = JSON.stringify({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          vaccinated: this.vaccinated,
-          gender: this.gender
+          title: this.title,
+          description: this.description,
+          module: this.module,
+          date: this.date,
+          done: this.done,
+          isFavorite: this.isFavorite
         })
 
         const requestOptions = {
@@ -112,7 +109,7 @@ export default {
       }
     },
     validate () {
-      const form = document.getElementById('persons-create-form')
+      const form = document.getElementById('toDo-create-form')
       form.classList.add('was-validated')
       return form.checkValidity()
     }

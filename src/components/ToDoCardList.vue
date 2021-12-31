@@ -1,21 +1,21 @@
 <template>
   <div class="row row-cols-1 row-cols-md-4 g-4">
-    <div class="col" v-for="person in persons" :key="person.id">
-      <person-card :person="person"></person-card>
+    <div class="col" v-for="toDo in toDos" :key="toDo.id">
+      <to-do-card :toDo="toDo"></to-do-card>
     </div>
   </div>
 </template>
 
 <script>
-import PersonCard from '@/components/PersonCard'
+import ToDoCard from "@/components/ToDoCard";
 
 export default {
-  name: 'PersonsCardList',
+  name: 'ToDoCardList',
   components: {
-    PersonCard
+    ToDoCard,
   },
   props: {
-    persons: {
+    toDos: {
       type: Array,
       required: true
     }
