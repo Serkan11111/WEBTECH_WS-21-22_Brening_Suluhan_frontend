@@ -3,16 +3,28 @@
     <table class="table table-striped table-bordered">
       <thead>
       <tr>
-        <th scope="col">Titel</th>
-        <th scope="col">Beschreibung</th>
-        <th scope="col">Modul</th>
-        <th scope="col">Deadline</th>
+        <th role="button" scope="col" @click="sortBy('titel')">Titel
+          <i v-if="sortedColumn === 'titel' && sortedState === 2" class="bi bi-caret-up-fill"></i>
+          <i v-if="sortedColumn === 'titel' && sortedState === 1" class="bi bi-caret-down-fill"></i>
+        </th>
+        <th role="button" scope="col" @click="sortBy('description')">Beschreibung
+          <i v-if="sortedColumn === 'description' && sortedState === 2" class="bi bi-caret-up-fill"></i>
+          <i v-if="sortedColumn === 'description' && sortedState === 1" class="bi bi-caret-down-fill"></i>
+        </th>
+        <th role="button" scope="col" @click="sortBy('module')">Modul
+          <i v-if="sortedColumn === 'module' && sortedState === 2" class="bi bi-caret-up-fill"></i>
+          <i v-if="sortedColumn === 'module' && sortedState === 1" class="bi bi-caret-down-fill"></i>
+        </th>
+        <th role="button" scope="col" @click="sortBy('date')">Deadline
+          <i v-if="sortedColumn === 'date' && sortedState === 2" class="bi bi-caret-up-fill"></i>
+          <i v-if="sortedColumn === 'date' && sortedState === 1" class="bi bi-caret-down-fill"></i>
+        </th>
         <th scope="col">Aktionen</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="toDo in toDos" :key="toDo.id">
-        <td>{{ toDo.title }}</td>
+        <td>{{ toDo.titel }}</td>
         <td>{{ toDo.description }}</td>
         <td>{{ toDo.module }}</td>
         <td>{{ toDo.date }}</td>
@@ -44,6 +56,13 @@ export default {
     editTodo: Function,
     openModal: Function
   },
+  data () {
+    return {
+      toDosCopy: this.toDos,
+      sortedColumn: '',
+      sortedState: 0
+    }
+  },
   methods: {
     editFavorite (toDo) {
       toDo.isFavorite = !toDo.isFavorite
@@ -52,6 +71,26 @@ export default {
     editDone (toDo) {
       toDo.done = !toDo.done
       this.editTodo(toDo)
+    },
+    sortBy (column) {
+      if (this.sortedColumn === column) {
+        if (this.sortedState === 1) {
+          this.sortedState = 2
+        } else {
+          this.sortedState = 0
+          this.sortedColumn = ''
+        }
+      } else {
+        this.sortedColumn = column
+        this.sortedState = 1
+      }
+      if (this.sortedState === 0) {
+        this.toDosCopy.sort((a, b) => a.id > b.id ? 1 : -1)
+      } else if (this.sortedState === 1) {
+        this.toDosCopy.sort((a, b) => a[this.sortedColumn] > b[this.sortedColumn] ? -1 : 1)
+      } else {
+        this.toDosCopy.sort((a, b) => a[this.sortedColumn] > b[this.sortedColumn] ? 1 : -1)
+      }
     }
   }
 }
