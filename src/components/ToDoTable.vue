@@ -23,17 +23,17 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="toDo in toDos" :key="toDo.id">
+      <tr v-for="toDo in toDosCopy" :key="toDo.id">
         <td>{{ toDo.titel }}</td>
         <td>{{ toDo.description }}</td>
         <td>{{ toDo.module }}</td>
-        <td>{{ toDo.date }}</td>
+        <td>{{ toDo.formatDate }}</td>
         <td v-if="toDo.done">
           <i role="button" class="bi bi-arrow-clockwise mx-1" @click="editDone(toDo)"></i>
           <i role="button" class="bi bi-archive-fill mx-1" @click="deleteToDo(toDo)"></i>
         </td>
         <td v-else class="">
-          <i role="button" class="bi mx-1" :class="toDo.isFavorite ? 'bi-star-fill' : 'bi-star'" @click="editFavorite(toDo)"></i>
+          <i role="button" class="bi mx-1" :class="toDo.favorite ? 'bi-star-fill' : 'bi-star'" @click="editFavorite(toDo)"></i>
           <i role="button" class="bi bi-check-square mx-1" @click="editDone(toDo)"></i>
           <i role="button" class="bi bi-pencil-square mx-1" @click="openModal(toDo)"></i>
           <i role="button" class="bi bi-archive-fill mx-1" @click="deleteToDo(toDo)"></i>
@@ -63,9 +63,15 @@ export default {
       sortedState: 0
     }
   },
+  watch: {
+    toDos: function (newVal, oldVal) {
+      this.toDosCopy = this.toDos
+      this.sort()
+    }
+  },
   methods: {
     editFavorite (toDo) {
-      toDo.isFavorite = !toDo.isFavorite
+      toDo.favorite = !toDo.favorite
       this.editTodo(toDo)
     },
     editDone (toDo) {
@@ -84,6 +90,9 @@ export default {
         this.sortedColumn = column
         this.sortedState = 1
       }
+      this.sort()
+    },
+    sort () {
       if (this.sortedState === 0) {
         this.toDosCopy.sort((a, b) => a.id > b.id ? 1 : -1)
       } else if (this.sortedState === 1) {

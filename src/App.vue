@@ -1,6 +1,8 @@
 <template>
+  <div class="background">
   <navbar></navbar>
   <router-view/>
+  </div>
 </template>
 
 <script>
@@ -13,24 +15,14 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.background  {
+  background: #f6d365;
+  background: -webkit-linear-gradient(to left, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+  background: linear-gradient(to left, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+  height: 100vh;
 }
 </style>

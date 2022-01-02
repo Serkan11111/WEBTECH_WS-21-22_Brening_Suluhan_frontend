@@ -5,14 +5,14 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 v-if="modalData" class="modal-titel">ToDo bearbeiten</h5>
+              <h5 v-if="modalData.id" class="modal-title">ToDo bearbeiten</h5>
               <h5 v-else class="modal-titel"> <strong>Erstelle eine neue To Do.</strong></h5>
             </div>
             <form class="needs-validation" id="to-do-create" novalidate>
             <div class="modal-body">
               <div class="form-group">
                 <label>Titel</label>
-                <input type="text" class="form-control" v-model="titel" placeholder="Bitte gebe einen Titel ein..." required>
+                <input type="text" class="form-control" v-model="title" placeholder="Bitte gebe einen Titel ein..." required>
                 <div class="invalid-feedback">
                   Bitte gebe den Titel deiner ToDo ein.
                 </div>
@@ -38,14 +38,6 @@
                   Bitte gebe das heutige Datum oder ein Datum in der Zukunft ein.
                 </div>
               </div>
-              <div class="form-group mt-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="isFavorite" v-model="isFavorite">
-                  <label class="form-check-label" for="isFavorite">
-                    Hohe Priorität?
-                  </label>
-                </div>
-              </div>
               <div v-if="this.serverValidationMessages">
                 <ul>
                   <li v-for="(message, index) in serverValidationMessages" :key="index" style="color: red">
@@ -56,7 +48,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="closeModal">Schließen</button>
-              <button type="button" class="btn btn-primary" @click="createToDo">Speichern</button>
+              <button type="button" class="btn btn-primary" @click="saveData">Speichern</button>
             </div>
             </form>
           </div>
@@ -76,13 +68,29 @@ export default {
   },
   data () {
     return {
-      titel: '',
+      title: '',
       description: '',
       module: '',
       date: '',
-      isFavorite: false,
-      done: false,
       response: {}
+    }
+  },
+  methods: {
+    saveData () {
+      if (this.title !== '' && this.module !== '' && this.date !== '') {
+        this.response = {}
+        if (this.modalData.id) {
+          this.response = this.modalData
+        } else {
+          this.response.isFavorite = false
+          this.response.done = false
+        }
+        this.response.titel = this.title
+        this.response.description = this.description
+        this.response.module = this.module
+        this.response.date = this.date
+        this.editTodo(this.response)
+      }
     }
   },
   mounted () {
@@ -92,54 +100,24 @@ export default {
       this.module = this.modalData.module
       this.date = this.modalData.date
     }
-  },
-  emits: ['created'],
-  methods: {
-    async createToDo () {
-      if (this.validate()) {
-        const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/todos'
-        const headers = new Headers()
-        headers.append('Content-Type', 'application/json')
-        const toDo = JSON.stringify({
-          titel: this.titel,
-          description: this.description,
-          module: this.module,
-          date: this.date,
-          done: this.done,
-          isFavorite: this.isFavorite
-        })
-        const requestOptions = {
-          method: 'POST',
-          headers: headers,
-          body: toDo,
-          redirect: 'follow'
-        }
-        const response = await fetch(endpoint, requestOptions)
-        await this.handleResponse(response)
-      }
-    },
-    async handleResponse (response) {
-      if (response.ok) {
-        this.$emit('created', response.headers.get('location'))
-        document.getElementById('close-modal').click()
-      } else if (response.status === 400) {
-        response = await response.json()
-        response.errors.forEach(error => {
-          this.serverValidationMessages.push(error.defaultMessage)
-        })
-      } else {
-        this.serverValidationMessages.push('Unknown error occurred')
-      }
-    },
-    validate () {
-      const form = document.getElementById('to-do-create')
-      form.classList.add('was-validated')
-      return form.checkValidity()
-    }
   }
 }
 </script>
 
 <style scoped>
-
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
 </style>
