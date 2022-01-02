@@ -1,20 +1,20 @@
 <template>
   <h1>ToDos</h1>
   <div class="container-fluid">
-    <to-do-card-list :toDos="this.toDos"></to-do-card-list>
+    <to-do-modal @created="addToDo"></to-do-modal>
   </div>
-  <to-do-create-form @created="addToDo"></to-do-create-form>
+  <to-do-table :toDos="this.toDos"></to-do-table>
 </template>
 
 <script>
-import ToDoCardList from '@/components/ToDoCardList'
-import ToDoCreateForm from '@/components/ToDoCreateForm'
+import ToDoTable from '@/components/ToDoTable'
+import ToDoModal from '@/components/ToDoModal'
 
 export default {
   name: 'ToDos',
   components: {
-    ToDoCreateForm,
-    ToDoCardList
+    ToDoModal,
+    ToDoTable
   },
   data () {
     return {
@@ -31,7 +31,7 @@ export default {
 
       fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(person => this.persons.push(person))
+        .then(toDo => this.toDos.push(toDo))
         .catch(error => console.log('error', error))
     }
   },
