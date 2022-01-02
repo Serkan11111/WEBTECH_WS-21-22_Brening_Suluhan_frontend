@@ -1,4 +1,4 @@
-[![CI](https://github.com/HtwProgramming/webtech-person-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/HtwProgramming/webtech-person-frontend/actions/workflows/ci.yml)
+[![CI](https://github.com/Serkan11111/WEBTECH_WS-21-22_Brening_Suluhan_frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/Serkan11111/WEBTECH_WS-21-22_Brening_Suluhan_frontend/actions/workflows/ci.yml)
 
 # person-frontend
 
