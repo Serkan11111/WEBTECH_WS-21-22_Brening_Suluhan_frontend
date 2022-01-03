@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table table-striped table-bordered">
+    <table class="table table-striped table-bordered table-hover">
       <thead>
       <tr>
         <th role="button" scope="col" @click="sortBy('titel')">Titel

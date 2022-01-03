@@ -21,12 +21,4 @@ describe('Testing Home.vue', () => {
     expect(table.exists()).toBeTruthy()
   })
 
-  it('should have toDos create form component', () => {
-    // when
-    const wrapper = mount(Home)
-
-    // then
-    const modal = wrapper.findComponent(ToDoModal)
-    expect(modal.exists()).toBeTruthy()
-  })
 })

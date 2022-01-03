@@ -1,19 +1,21 @@
 <template>
+  <div class="container mt-3">
   <h1>ToDos</h1>
+  </div>
   <to-do-modal v-if="isModalOpen" :modalData="modalData" :editTodo="editTodo" :closeModal="closeModal"></to-do-modal>
   <div class="container mt-3">
     <div class="row d-flex justify-content-between">
       <div class="col-3">
-        <input class="form-control bg-dark text-white" v-model="searchInput" placeholder="Suchen nach Modul oder Datum..."/>
+        <input class="form-control bg-dark text-white" v-model="searchInput" placeholder="Filter nach Modul oder Datum..."/>
       </div>
       <button class="btn btn-success col-auto px-4" @click="openModal">Erstellen</button>
     </div>
     <div class="row mt-2">
-      <p class="text-white h6">Noch zu erledigen:</p>
+      <p class="h6 text-decoration-underline">Noch zu erledigen:</p>
       <to-do-table :toDos="checkToDos(false)" :deleteToDo="deleteToDo" :editTodo="editTodo" :openModal="openModal"></to-do-table>
     </div>
     <div class="row mt-2">
-      <p class="text-white h6">Bereits erledigt:</p>
+      <p class="text-decoration-underline h6">Bereits erledigt:</p>
       <to-do-table :toDos="checkToDos(true)" :deleteToDo="deleteToDo" :editTodo="editTodo"></to-do-table>
     </div>
   </div>
