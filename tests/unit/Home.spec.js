@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils'
 import ToDoTable from '@/components/ToDoTable'
-import ToDoModal from '@/components/ToDoModal'
 import Home from '@/views/Home'
 
 describe('Testing Home.vue', () => {

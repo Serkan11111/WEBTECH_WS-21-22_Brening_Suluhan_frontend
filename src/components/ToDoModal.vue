@@ -77,12 +77,13 @@ export default {
   },
   methods: {
     saveData () {
+      //  if (this.validate()) {
       if (this.title !== '' && this.module !== '' && this.date !== '') {
         this.response = {}
         if (this.modalData.id) {
           this.response = this.modalData
         } else {
-          this.response.isFavorite = false
+          this.response.favorite = false
           this.response.done = false
         }
         this.response.titel = this.title
@@ -93,6 +94,24 @@ export default {
       }
     }
   },
+  // validate () {
+  // let valid = true
+  //  const forms = document.querySelectorAll('.needs-validation')
+
+  //  Array.prototype.slice.call(forms)
+  //    .forEach(function (form) {
+  //      form.addEventListener('submit', function (event) {
+  //        if (!form.checkValidity()) {
+  //          valid = false
+  //          event.preventDefault()
+  //          event.stopPropagation()
+  //        }
+
+  //        form.classList.add('was-validated')
+  //      }, false)
+  //    })
+  //  return valid
+  // },
   mounted () {
     if (this.modalData) {
       this.title = this.modalData.titel
