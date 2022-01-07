@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     saveData () {
-      //  if (this.validate()) {
+    //    if (this.validate()) {
       if (this.title !== '' && this.module !== '' && this.date !== '') {
         this.response = {}
         if (this.modalData.id) {
@@ -94,24 +94,24 @@ export default {
       }
     }
   },
-  // validate () {
-  // let valid = true
-  //  const forms = document.querySelectorAll('.needs-validation')
-
-  //  Array.prototype.slice.call(forms)
-  //    .forEach(function (form) {
-  //      form.addEventListener('submit', function (event) {
-  //        if (!form.checkValidity()) {
-  //          valid = false
-  //          event.preventDefault()
-  //          event.stopPropagation()
-  //        }
-
-  //        form.classList.add('was-validated')
-  //      }, false)
-  //    })
-  //  return valid
-  // },
+  //  validate () {
+  //    let valid = true
+  //    const forms = document.querySelectorAll('.needs-validation')
+  //
+  //    Array.prototype.slice.call(forms)
+  //      .forEach(function (form) {
+  //        form.addEventListener('button', function (event) {
+  //          if (!form.checkValidity()) {
+  //            valid = false
+  //            event.preventDefault()
+  //            event.stopPropagation()
+  //          }
+  //
+  //          form.classList.add('was-validated')
+  //        }, false)
+  //      })
+  //    return valid
+  //  },
   mounted () {
     if (this.modalData) {
       this.title = this.modalData.titel
